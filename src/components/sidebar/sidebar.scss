@@ -1,0 +1,49 @@
+.sidebar{
+    border-right: 2px solid rgb(4, 99, 28);
+    min-height: 100vh;
+    flex: 1.5;
+    .top{
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .logo{
+            font-size:larger;
+            font-weight: bold;
+            color: rgb(4, 99, 28) ;
+            text-align: center;
+            align-items: center;
+        }
+    }
+    hr{
+        height: 0;
+        border: 1.5px solid rgb(4, 99, 28);
+    }
+    .center{
+        background-color: white;
+        padding-left: 10px;
+        ul{
+            list-style: none;
+            padding: 0px;
+            margin:0px;
+            .title{
+                font-size: 10px;
+                font-weight: bold;
+                color: #999;
+                margin-top: 15px;
+            }
+            li{
+                display: flex;
+                align-items: center;
+                padding: 5px;
+                cursor: pointer;
+                &:hover{
+                    background-color: rgba(4, 99, 28, 0.338) ;
+                }
+                .icon{
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
