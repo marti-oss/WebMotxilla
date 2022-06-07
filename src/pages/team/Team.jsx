@@ -5,6 +5,11 @@ import Datatable from "../../components/datatable/Datatable";
 import Button from "../../components/button/Button";
 import { Link } from "react-router-dom";
 import { tabUnstyledClasses } from "@mui/base";
+import config from "../../config";
+import APIClient from "../../client";
+import { useEffect, useState } from "react";
+
+const client = new APIClient(config);
 
 const rowsMonitors = [
     { id: 1, nom: 'Martí', primercognom: 'Serra', segoncognom:"Aguilera" , dni:"4797****N", llicencia:"123456789", sanitaria:"SEAG 0 990226 025",email: "msa@upc.edu"},
@@ -14,7 +19,6 @@ const rowsMonitors = [
 ];
 
 const columnsMonitors = [
-    { field: 'id', headerName: 'ID', width: 70 },
     { field: 'nom', headerName: 'Primer Cognom', width: 200 },
     { field: 'segoncognom', headerName: 'Segon Cognom', width: 200 },
     {
@@ -37,7 +41,6 @@ const rowsNens = [
 ];
 
 const columnsNens = [
-    { field: 'id', headerName: 'ID', width: 70 },
     { field: 'nom', headerName: 'Nom', width: 200 },
     { field: 'primercognom', headerName: 'Primer Cognom', width: 200 },
     { field: 'segoncognom', headerName: 'Segon Cognom', width: 200 },
@@ -47,39 +50,50 @@ const columnsNens = [
         type: 'number',
         width: 200,
     },
-    { field: 'dataNeix', headerName: 'Data Neixament', type: 'date', width: 200 },
+    { field: 'dataNeix', headerName: 'Data Naixement', type: 'date', width: 200 },
     { field: 'autoritzacio', headerName: 'Autorització', width: 200 },
     { field: 'sanitaria', headerName: 'Targeta Sanitària', width: 200 },
-    { field: 'email', headerName: 'Correu electrònic', width: 200 },
 ];
 
 
-function taula(){
-    var url =  window.location.href;
-    if (url.match("monitor")) return <Datatable rows={rowsMonitors} columns={columnsMonitors}/>
-    if (url.match("nen")) return <Datatable rows={rowsNens} columns={columnsNens}/>
-    if (url.match("equip")) return (
-        <div>
-            <h1>Monitors</h1>
-            <Datatable rows={rowsMonitors.filter(item=>item.id==1)} columns={columnsMonitors}/>
-            <h1>Nens</h1>
-            <Datatable rows={rowsNens} columns={columnsNens}/>
-        </div>
-
-    )
+function taula(state){
+    if (state != false) {
+        return (
+            <div>
+                <h1>Monitors</h1>
+                <Datatable rows={state.monitors} columns={columnsMonitors} buttons="false"/>
+                <h1>Nens</h1>
+                <Datatable rows={state.participants} columns={columnsNens} buttons="false"/>
+            </div>
+        );
+    }
 }
 
 const List = () => {
+    var url =  window.location.href;
+    var id =  url.substring(url.lastIndexOf("/") + 1);
+
+    const [pending, setData] = useState(false);
+    const showData = async() =>{
+        client.getEquip(id).then((data) => {
+            setData(data.data[0]);
+            }
+        )   
+    }
+    useEffect(() => {
+        showData()
+    },[])
+
     return (
         <div className="list">
             <div className="listContainer">
                 <Navbar/>
-                <div className="top">
+                <div className="top" style={{visibility:"hidden"}}>
                     <Link to="new">
                     <Button type="New"/>
                     </Link>
                 </div>
-                {taula()}
+                {taula(pending)}
             </div>
 
         </div>
