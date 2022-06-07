@@ -47,18 +47,22 @@ const NewMonitor = () => {
     const [pending, setData] = useState(false);
     useEffect(() => {
         showData()
+        visulitzar()
     }, [])
     const showData = async () => {
         if (url.match("edit")) {
             client.getMonitor(id).then((data) => {
-                setData(data.data);
-                document.getElementById("nom").value = data.data.nom;
-                document.getElementById("cognom1").value = data.data.cognom1;
-                document.getElementById("cognom2").value = data.data.cognom2;
-                document.getElementById("email").value = data.data.email;
-                document.getElementById("dni").value = data.data.dni;
-                document.getElementById("llicencia").value = data.data.llicencia;
-                document.getElementById("targetaSanitaria").value = data.data.targetaSanitaria;
+                if(data.code != 200) window.location.href= '/login'
+                else {
+                    setData(data.data);
+                    document.getElementById("nom").value = data.data.nom;
+                    document.getElementById("cognom1").value = data.data.cognom1;
+                    document.getElementById("cognom2").value = data.data.cognom2;
+                    document.getElementById("email").value = data.data.email;
+                    document.getElementById("dni").value = data.data.dni;
+                    document.getElementById("llicencia").value = data.data.llicencia;
+                    document.getElementById("targetaSanitaria").value = data.data.targetaSanitaria;
+                }
             }
             )
         }
@@ -71,18 +75,28 @@ const NewMonitor = () => {
         var id = url.split("/")[4];
         if (url.match("edit")) {
             client.editMonitor(id,string).then((data) =>{
-                setData2(data)
-                window.location.href = '/monitor/' + id
+                if(data.code != 200) window.location.href= '/login'
+                else {
+                    setData2(data)
+                    window.location.href = '/monitor/' + id
+                }                
             })
         }
         else {
             client.postMonitor(string).then((data) =>{
-                setData2(data)
-                window.location.href = '/monitor/' + id
+                if(data.code != 200) window.location.href= '/login'
+                else {
+                    setData2(data)
+                    window.location.href = '/monitor/' + id
+                }
             })
         }
-
     }
+
+    function visulitzar() {
+        if(localStorage.getItem("token") == "null") window.location.href = '/login'
+    }
+
     return (
         <div>
             <div className="newContainer">

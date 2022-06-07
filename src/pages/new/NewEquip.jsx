@@ -193,7 +193,8 @@ const NewEquip = () =>{
     const [pending, setData] = useState(false);
     const showData = async() =>{
         client.getMonitors().then((data) => {
-            setData(data.data);
+            if(data.code != 200) window.location.href= '/login'
+            else setData(data.data);
             }
         ) 
     }
@@ -205,7 +206,8 @@ const NewEquip = () =>{
     const [pendingParticipants, setParticipants] = useState(false);
     const showParticipants = async() =>{
         client.getParticipants().then((data) => {
-            setParticipants(data.data);
+            if(data.code != 200) window.location.href= '/login'
+            else setParticipants(data.data);
             }
         ) 
     }
@@ -218,11 +220,23 @@ const NewEquip = () =>{
         var body = guardarEquip()
         if (body == !undefined){
             client.postEquip(body).then((data) => {
-                setData(data.data)
-                window.location.href='/equip'
+                if(data.code != 200) window.location.href= '/login'
+                else {
+                    setData(data.data)
+                    window.location.href='/equip'
+                }
             })
        }
     }
+
+    function visulitzar() {
+        if(localStorage.getItem("token") == "null") window.location.href = '/login'
+    }
+
+    useEffect(() => {
+        visulitzar()
+    }, []);
+
 
     return(
         <div className="newContainer">
@@ -251,7 +265,6 @@ const NewEquip = () =>{
                             <h2>Seleccionar Monitor</h2>
                             <div className="select">
                                 {crearSelectInputMonitor(pending,'selectMonitor')}
-                                {crearAutocompleteMonitor(pending,'selectMonitor')}
                             </div>
                             {botoMonitor()}
                             {crearTaulaMonitor()}

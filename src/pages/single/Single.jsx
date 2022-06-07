@@ -65,7 +65,8 @@ const Single = () => {
     const showData = async() =>{
         if (url.match("monitor")) {
             client.getMonitor(id).then((data) => {
-                setData(data.data);
+                if(data.code != 200) window.location.href= '/login'
+                else setData(data.data);
                 }
             )
         }

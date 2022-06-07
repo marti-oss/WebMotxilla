@@ -72,7 +72,8 @@ const SingleNen = () => {
     const [pending, setData] = useState(false);
     const showData = async() =>{
         client.getParticipant(id).then((data) => {
-            setData(data.data);
+            if(data.code != 200) window.location.href= '/login'
+            else setData(data.data);
             }
         )
     }
@@ -84,7 +85,8 @@ const SingleNen = () => {
     const [pendingPares, setPares] = useState(false);
     const showPares = async() =>{
         client.getParticipantResponsable(id).then((data) => {
-            setPares(data.data)
+            if(data.code != 200) window.location.href= '/login'
+            else setPares(data.data)
         })
     }
 

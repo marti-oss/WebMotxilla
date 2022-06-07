@@ -6,8 +6,15 @@ import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { Link, Navigate } from "react-router-dom";
 import Logo from "../../components/logo/Logo"
+import APIClient from "../../client";
+import config from "../../config";
+
+const client = new APIClient(config);
 
 const Navbarr = () => {
+    function tancarSessio() {
+        client.tancarSessio()
+    }
     return (
         <div className='navbar'>
             <div className="wrapper">
@@ -40,7 +47,7 @@ const Navbarr = () => {
                 </div>
                 <div className="items">
                     <div className="item">
-                        <span>
+                        <span onClick={() => tancarSessio()}>
                             <Link to="/login">
                                 <LogoutIcon/>
                             </Link>

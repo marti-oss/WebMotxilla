@@ -79,25 +79,30 @@ const List = () => {
     const [pending, setData] = useState(false);
     var url =  window.location.href;
     const showData = async() =>{
-        if (url.match("monitor")) {
-            client.getMonitors().then((data) => {
-                setData(data.data);
-                }
-            )
-        }
-            
-        else if (url.match("nen")) {
-            client.getParticipants().then((data) => {
-                setData(data.data);
-                }
-            )
-        }   
-        else if (url.match("equip")) 
-            client.getEquips().then((data) => {
-                setData(data.data);
-                }
-            )   
+            if (url.match("monitor")) {
+                client.getMonitors().then((data) => {
+                    if(data.code != 200) window.location.href= '/login'
+                    else setData(data.data);
+                    }
+                )
+            }
+            else if (url.match("nen")) {
+                client.getParticipants().then((data) => {
+                    if(data.code != 200) window.location.href= '/login'
+                    else setData(data.data);
+                    }
+                )
+            }   
+            else if (url.match("equip")) 
+                client.getEquips().then((data) => {
+                    if(data.code != 200) window.location.href= '/login'
+                    else setData(data.data);
+                    }
+                )   
     }
+        
+            
+        
     useEffect(() => {
         showData()
     },[])

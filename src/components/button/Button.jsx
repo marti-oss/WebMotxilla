@@ -77,10 +77,13 @@ const Button = (prop) => {
 
     const [pending, setData] = useState(false);
     const esborrar = async(isfor) => {
-        client.deleteAll(isfor).then((data) => 
-            setData(data),
-            window.location.reload(false)
-        )
+        client.deleteAll(isfor).then((data) => {
+            if(data.code != 200) window.location.href= '/login'
+            else {
+                setData(data)
+                window.location.reload(false)
+            }
+        })
     }
     return (
         <>

@@ -41,7 +41,9 @@ const SingleMonitor = () => {
     const showData = async() =>{
         if (url.match("monitor")) {
             client.getMonitor(id).then((data) => {
-                setData(data.data);
+                console.log(data)
+                if(data.code != 200) window.location.href= '/login'
+                else setData(data.data);
                 }
             )
         }

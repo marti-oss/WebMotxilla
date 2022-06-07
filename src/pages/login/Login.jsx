@@ -31,7 +31,7 @@ const Login = () => {
                       </div>
                       <div className="formInput">
                           <label>Contrasenya</label>
-                          <input id="contrasenya" type="text"/>
+                          <input id="contrasenya" type="password"/>
                       </div>
                       <div style={{ visibility: "hidden" }}>
                         <button type="button">

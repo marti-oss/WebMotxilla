@@ -143,16 +143,19 @@ const NewNen = () => {
     const showData = async () => {
         if (url.match("edit")) {
             client.getParticipant(id).then((data) => {
-                setData(data.data);
-                setSwitchValue(data.data.autoritzacio)
-                document.getElementById("nenNom").value = data.data.nom
-                document.getElementById("nenCognom1").value = data.data.cognom1
-                document.getElementById("nenCognom2").value = data.data.cognom2
-                document.getElementById("nenDni").value = data.data.dni;
-                document.getElementById("nenDataNaixement").value = data.data.dataNaixement.date.split(" ")[0]
-                document.getElementById("nenTargetaSanitaria").value = data.data.targetaSanitaria
-            }
-            )
+                if(data.code != 200) window.location.href= '/login'
+                else{
+                    setData(data.data);
+                    setSwitchValue(data.data.autoritzacio)
+                    document.getElementById("nenNom").value = data.data.nom
+                    document.getElementById("nenCognom1").value = data.data.cognom1
+                    document.getElementById("nenCognom2").value = data.data.cognom2
+                    document.getElementById("nenDni").value = data.data.dni;
+                    document.getElementById("nenDataNaixement").value = data.data.dataNaixement.date.split(" ")[0]
+                    document.getElementById("nenTargetaSanitaria").value = data.data.targetaSanitaria
+                if(data.code != 200) window.location.href= '/login'
+                }
+            })
         }
 
     }
@@ -161,25 +164,28 @@ const NewNen = () => {
     const showPares = async () => {
         if (url.match("edit")) {
             client.getParticipantResponsable(id).then((data) => {
-                setPares(data.data)
-                for (var i = 0; i < setPares.length; ++i) {
-                    if (i == 0) {
-                        document.getElementById("pareNom").value = data.data[i].nom
-                        document.getElementById("pareCognom1").value = data.data[i].cognom1
-                        document.getElementById("pareCognom2").value = data.data[i].cognom2
-                        document.getElementById("pareEmail").value = data.data[i].email
-                        document.getElementById("pareDni").value = data.data[i].dni
-                        document.getElementById("pareTelefon1").value = data.data[i].telefon1
-                        document.getElementById("pareTelefon2").value = data.data[i].telefon2
-                    }
-                    else {
-                        document.getElementById("mareNom").value = data.data[i].nom
-                        document.getElementById("mareCognom1").value = data.data[i].cognom1
-                        document.getElementById("mareCognom2").value = data.data[i].cognom2
-                        document.getElementById("mareEmail").value = data.data[i].email
-                        document.getElementById("mareDni").value = data.data[i].dni
-                        document.getElementById("mareTelefon1").value = data.data[i].telefon1
-                        document.getElementById("mareTelefon2").value = data.data[i].telefon2
+                if(data.code != 200) window.location.href= '/login'
+                else{
+                    setPares(data.data)
+                    for (var i = 0; i < setPares.length; ++i) {
+                        if (i == 0) {
+                            document.getElementById("pareNom").value = data.data[i].nom
+                            document.getElementById("pareCognom1").value = data.data[i].cognom1
+                            document.getElementById("pareCognom2").value = data.data[i].cognom2
+                            document.getElementById("pareEmail").value = data.data[i].email
+                            document.getElementById("pareDni").value = data.data[i].dni
+                            document.getElementById("pareTelefon1").value = data.data[i].telefon1
+                            document.getElementById("pareTelefon2").value = data.data[i].telefon2
+                        }
+                        else {
+                            document.getElementById("mareNom").value = data.data[i].nom
+                            document.getElementById("mareCognom1").value = data.data[i].cognom1
+                            document.getElementById("mareCognom2").value = data.data[i].cognom2
+                            document.getElementById("mareEmail").value = data.data[i].email
+                            document.getElementById("mareDni").value = data.data[i].dni
+                            document.getElementById("mareTelefon1").value = data.data[i].telefon1
+                            document.getElementById("mareTelefon2").value = data.data[i].telefon2
+                        }
                     }
                 }
             })
@@ -189,6 +195,7 @@ const NewNen = () => {
     useEffect(() => {
         showData()
         showPares()
+        visulitzar()
     }, []);
 
 
@@ -211,22 +218,32 @@ const NewNen = () => {
                 })
             }
             client.editParticipant(idParticipant, stringParticipant).then((data) => {
-                data = data;
-                window.location.href = '/nen/' + idParticipant
+                if(data.code != 200) window.location.href= '/login'
+                else{
+                    data = data;
+                    window.location.href = '/nen/' + idParticipant
+                }
             })
         }
         else {
             var string = bodyPost(setSwitchValue)
             if  (string != undefined) {
                 client.postParticipant(string).then((data) => {
-                    data = data
-                    window.location.href = '/nen'
+                    if(data.code != 200) window.location.href= '/login'
+                    else{
+                        data = data
+                        window.location.href = '/nen'
+                    }
                 })
             }
         }
     }
 
     const [switchValue, setSwitchValue] = useState(false);
+
+    function visulitzar() {
+        if(localStorage.getItem("token") == "null") window.location.href = '/login'
+    }
 
 
     return (

@@ -76,7 +76,8 @@ const List = () => {
     const [pending, setData] = useState(false);
     const showData = async() =>{
         client.getEquip(id).then((data) => {
-            setData(data.data[0]);
+            if(data.code != 200) window.location.href= '/login'
+            else setData(data.data[0]);
             }
         )   
     }
