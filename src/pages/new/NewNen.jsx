@@ -6,7 +6,8 @@ import config from "../../config";
 import APIClient from "../../client";
 import SaveIcon from '@mui/icons-material/Save';
 import Switch from "../../components/switch/Switch";
-import { CookieTwoTone } from '@mui/icons-material';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const client = new APIClient(config);
 
@@ -23,7 +24,11 @@ function bodyPost(setSwitchValue) {
                 if (inputs[i].id == "nenCognom2") string += "cognom2=" + inputs[i].value;
                 if (inputs[i].id == "nenreact-switch-new") string += "autoritzacio=" + setSwitchValue
                 if (inputs[i].id == "nenDni") string += "dni=" + inputs[i].value;
-                if (inputs[i].id == "nenDataNaixement") string += "dataNaixement=" + inputs[i].value;
+                if (inputs[i].id == "nenDataNaixement") {
+                    var date = inputs[i].value.split("/")
+                    var dataNaix = date[2] + "-" + date[1] + "-" + date[0]
+                    string += "dataNaixement=" + dataNaix;
+                }
                 if (inputs[i].id == "nenTargetaSanitaria") string += "targetaSanitaria=" + inputs[i].value;
             }
             if (inputs[i].id.includes("pare")) {
@@ -86,14 +91,18 @@ function bodyPost(setSwitchValue) {
     return string
 }
 
-function putParticipant(setSwitchValue) {
+function putParticipant(setSwitchValue,setStartDate) {
     var string = ""
     if (document.getElementById("nenNom").length != 0) string += "?nom=" + document.getElementById("nenNom").value
     if (document.getElementById("nenCognom1").length != 0) string += "&cognom1=" + document.getElementById("nenCognom1").value
     if (document.getElementById("nenCognom2").length != 0) string += "&cognom2=" + document.getElementById("nenCognom2").value
     if (document.getElementById("nenreact-switch-new")) string += "&autoritzacio=" + setSwitchValue
     if (document.getElementById("nenDni").length != 0) string += "&dni=" + document.getElementById("nenDni").value
-    if (document.getElementById("nenDataNaixement").length != 0) string += "&dataNaixement=" + document.getElementById("nenDataNaixement").value
+    if (document.getElementById("nenDataNaixement").length != 0) {
+        var date = document.getElementById("nenDataNaixement").value
+        var dataNaix = date[2] + "-" + date[1] + "-" + date[0]
+        string += "&dataNaixement=" + dataNaix;
+    }
     if (document.getElementById("nenTargetaSanitaria").length != 0) string += "&targetaSanitaria=" + document.getElementById("nenTargetaSanitaria").value
 
     if (string.length != 0) {
@@ -147,11 +156,15 @@ const NewNen = () => {
                 else{
                     setData(data.data);
                     setSwitchValue(data.data.autoritzacio)
+                    console.log(data.data.dataNaixement)
+                    var date = data.data.dataNaixement.split("/")
+                    var date2 = date[2] + '-' + date[1] + '-' + date[0]+'T00:00:00.0000Z'
+                    setStartDate(Date.parse(date2))
                     document.getElementById("nenNom").value = data.data.nom
                     document.getElementById("nenCognom1").value = data.data.cognom1
                     document.getElementById("nenCognom2").value = data.data.cognom2
                     document.getElementById("nenDni").value = data.data.dni;
-                    document.getElementById("nenDataNaixement").value = data.data.dataNaixement.date.split(" ")[0]
+                    document.getElementById("nenDataNaixement").value = data.data.dataNaixement
                     document.getElementById("nenTargetaSanitaria").value = data.data.targetaSanitaria
                 if(data.code != 200) window.location.href= '/login'
                 }
@@ -200,12 +213,12 @@ const NewNen = () => {
 
 
     const [pending2, setData2] = useState(false);
-    const guardarParticipant = async (setData, setPares,setSwitchValue) => {
+    const guardarParticipant = async (setData, setPares,setSwitchValue,setStartDate) => {
         var url = window.location.href
 
         if (url.match("edit")) {
             var idParticipant = setData.id
-            var stringParticipant = putParticipant(setSwitchValue)
+            var stringParticipant = putParticipant(setSwitchValue,setStartDate)
             var stringResponable1 = putResponsable1()
             var stringResponsable2 = ""
             if (typeof stringParticipant === 'undefined' || typeof stringResponable1 === 'undefined' || typeof stringResponsable2 == 'undefined') return
@@ -240,6 +253,7 @@ const NewNen = () => {
     }
 
     const [switchValue, setSwitchValue] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
 
     function visulitzar() {
         if(localStorage.getItem("token") == "null") window.location.href = '/login'
@@ -273,9 +287,7 @@ const NewNen = () => {
                                                 <input id="nenCognom2" type="text" placeholder="Aguilera" />
                                             </div>
                                             <div className="formInput">
-                                                {/*<label>Autorització</label>
-                                                <input id="nenAutoritzacio" type="email" placeholder="Sí" required />
-    */}
+                                                <label>Autorització</label>
                                                 <Switch isOn={switchValue} handleToggle={() => setSwitchValue(!switchValue)}></Switch>
                                             </div>
                                         </div>
@@ -286,7 +298,8 @@ const NewNen = () => {
                                             </div>
                                             <div className="formInput">
                                                 <label>Data Naixement</label>
-                                                <input id="nenDataNaixement" type="text" placeholder="1999-05-27" required />
+                                                {/*<input id="nenDataNaixement" type="text" placeholder="1999-05-27" required />*/}
+                                                <DatePicker id={"nenDataNaixement"}selected={startDate}  dateFormat='dd/MM/yyyy' onChange={(date:Date) => setStartDate(date)}></DatePicker>
                                             </div>
                                             <div className="formInput">
                                                 <label>Targeta Sanitària</label>

@@ -239,57 +239,59 @@ const NewEquip = () =>{
 
 
     return(
-        <div className="newContainer">
-            <Navbar></Navbar>
-            <div className="box">
-                <h1>Nou Equip</h1>
-                <div className="bottom">
-                    <div className="input">
-                        <div className="left">
-                            <div className="formInput">
-                                <label>Nom</label>
-                                <input id="nom" type="text" placeholder="Formigues"/>
+        <div className="new">
+            <div className="newContainer">
+                <Navbar></Navbar>
+                <div className="box">
+                    <h1>Nou Equip</h1>
+                    <div className="bottom">
+                        <div className="input">
+                            <div className="left">
+                                <div className="formInput">
+                                    <label>Nom</label>
+                                    <input id="nom" type="text" placeholder="Formigues"/>
+                                </div>
+                            </div>
+                            <div className="right">
+                                <div className="formInput" style={{visibility:"hidden"}}>
+                                    <label>Nom</label>
+                                    <input id="nom" type="text" placeholder="Formigues"/>
+                                </div>
                             </div>
                         </div>
-                        <div className="right">
-                            <div className="formInput" style={{visibility:"hidden"}}>
-                                <label>Nom</label>
-                                <input id="nom" type="text" placeholder="Formigues"/>
+                    </div>
+                    <div className="bottom">
+                        <div className="input">
+                            <div className="left">
+                                <h2>Seleccionar Monitor</h2>
+                                <div className="select">
+                                    {crearSelectInputMonitor(pending,'selectMonitor')}
+                                </div>
+                                {botoMonitor()}
+                                {crearTaulaMonitor()}
                             </div>
+                            <div className="right">
+                            <h2>Seleccionar Participant</h2>
+                                <div className="select">
+                                    {crearSelectInputParticipant(pendingParticipants, "selectParticipant")}
+                                </div>
+                                {botoParticipant()}
+                                {crearTaulaParticipant()}
+                            </div>
+                        </div>
+                        <div className="button">
+                            <div style={{visibility:"hidden"}}>
+                                <Button></Button>
+                            </div> 
+                            <button type="button" style={{color: "darkblue", borderColor: "rgba(0, 0, 139, 0.596)"}} onClick={() => guardar()}>
+                                <SaveIcon ></SaveIcon>
+                                <span>Guardar</span>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div className="bottom">
-                    <div className="input">
-                        <div className="left">
-                            <h2>Seleccionar Monitor</h2>
-                            <div className="select">
-                                {crearSelectInputMonitor(pending,'selectMonitor')}
-                            </div>
-                            {botoMonitor()}
-                            {crearTaulaMonitor()}
-                        </div>
-                        <div className="right">
-                        <h2>Seleccionar Participant</h2>
-                            <div className="select">
-                                {crearSelectInputParticipant(pendingParticipants, "selectParticipant")}
-                            </div>
-                            {botoParticipant()}
-                            {crearTaulaParticipant()}
-                        </div>
-                    </div>
-                    <div className="button">
-                        <div style={{visibility:"hidden"}}>
-                            <Button></Button>
-                        </div> 
-                        <button type="button" style={{color: "darkblue", borderColor: "rgba(0, 0, 139, 0.596)"}} onClick={() => guardar()}>
-                            <SaveIcon ></SaveIcon>
-                            <span>Guardar</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
 
+            </div>
         </div>
     );
 }

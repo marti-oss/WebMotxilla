@@ -24,7 +24,7 @@ const Datatable = (rowsAndcolumns) => {
     }];
     if (rowsAndcolumns.buttons =="false"){
         return (
-            <div class="datatable">
+            <div className="datatable">
             <DataGrid
                 rows={rowsAndcolumns.rows}
                 columns={rowsAndcolumns.columns}
@@ -36,7 +36,7 @@ const Datatable = (rowsAndcolumns) => {
         
     }
     return (
-        <div class="datatable">
+        <div className="datatable">
         <DataGrid
             rows={rowsAndcolumns.rows}
             columns={rowsAndcolumns.columns.concat(actionColums)}

@@ -11,7 +11,6 @@ const client = new APIClient(config);
 const Home = () => {
     
     function visulitzar() {
-        console.log(localStorage.getItem("token") == "null")
         if(localStorage.getItem("token") == "null") window.location.href = '/login'
     }
 

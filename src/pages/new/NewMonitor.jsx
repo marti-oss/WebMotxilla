@@ -5,8 +5,6 @@ import Button from "../../components/button/Button";
 import config from "../../config";
 import APIClient from "../../client";
 import SaveIcon from '@mui/icons-material/Save';
-import { nominalTypeHack } from "prop-types";
-import { WindowRounded } from "@mui/icons-material";
 
 const client = new APIClient(config);
 
@@ -98,7 +96,7 @@ const NewMonitor = () => {
     }
 
     return (
-        <div>
+        <div className="new">
             <div className="newContainer">
                 <Navbar />
                 <div className="box">

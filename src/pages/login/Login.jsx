@@ -17,7 +17,7 @@ const Login = () => {
         })
     }
   return(
-      <div className="newContainer">
+      <div className="loginContainer">
           <Logo style={{with:0}}></Logo>
           <div className="box">
               <div className="top">

@@ -44,7 +44,7 @@ function participant(pending) {
                 <div className="nom">Nom: {pending.nom}</div>
                 <div className="cognoms">Cognoms: {pending.cognom1} {pending.cognom2}</div>
                 <div className="dni">DNI: {pending.dni}</div>
-                <div className="dataNaixement">Data Naixement: {pending.dataNaixement.date.split(" ")[0]}</div>
+                <div className="dataNaixement">Data Naixement: {pending.dataNaixement}</div>
                 <div className="Autorització">Autorització: {pending.autoritzacio}</div>
                 <div className="targetasanitaria">Target Sanitària:  {pending.targetaSanitaria}</div>
             </div>
