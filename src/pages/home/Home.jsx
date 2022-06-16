@@ -1,12 +1,24 @@
-import React from "react";
-import Sidebar from "../../components/sidebar/Sidebar";
+import React, { useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
-import Widget from "../../components/widget/Widget";
 import "./home.scss";
 import { Link } from "react-router-dom";
-import List from "../../components/table/Table";
+import APIClient from "../../client";
+import config from "../../config";
+
+const client = new APIClient(config);
+
 
 const Home = () => {
+    
+    function visulitzar() {
+        if(localStorage.getItem("token") == "null") window.location.href = '/login'
+    }
+
+    useEffect(() => {
+        visulitzar()
+    }, []);
+
+
     return (
         <div className="home">
             <div className="homeContainer">

@@ -4,10 +4,17 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import GroupsIcon from '@mui/icons-material/Groups';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Logo from "../../components/logo/Logo"
+import APIClient from "../../client";
+import config from "../../config";
+
+const client = new APIClient(config);
 
 const Navbarr = () => {
+    function tancarSessio() {
+        client.tancarSessio()
+    }
     return (
         <div className='navbar'>
             <div className="wrapper">
@@ -19,17 +26,17 @@ const Navbarr = () => {
                     </div>
                 </div>
                 <div className="center">
-                    <span>
+                    <span onClick={() => {window.location.href = '/monitor'}}>
                         <Link to="/monitor">
                             <EmojiPeopleIcon className="icon"/>Monitors
                         </Link>
                     </span>
-                    <span>
+                    <span onClick={() => {window.location.href = '/nen'}}>
                         <Link to="/nen">
                             <ChildCareIcon className="icon"/>Nens
                         </Link>
                     </span>
-                    <span>
+                    <span onClick={() => {window.location.href = '/equip'}}>
                         <Link to="/equip">
                             <GroupsIcon className="icon"/>Equips
                         </Link>
@@ -40,7 +47,11 @@ const Navbarr = () => {
                 </div>
                 <div className="items">
                     <div className="item">
-                        <LogoutIcon/>
+                        <span onClick={() => tancarSessio()}>
+                            <Link to="/login">
+                                <LogoutIcon/>
+                            </Link>
+                        </span>
                     </div>
                 </div>
 

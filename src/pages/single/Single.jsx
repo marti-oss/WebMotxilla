@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import "./single.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Button from "../../components/button/Button";
 import Datatable from "../../components/datatable/Datatable";
+import config from "../../config";
+import APIClient from "../../client";
+import { Link } from "react-router-dom";
+import { Monitor } from '@mui/icons-material';
+
+const client = new APIClient(config);
 
 function readURL(param){
     var url =  window.location.href;
@@ -32,23 +38,56 @@ const columnsPares = [
     { field: 'email', headerName: 'Correu electrònic', width: 200 },
 ];
 
+
+function monitor(pending) {
+    if(pending){
+        return(
+            <div>
+            <h1 className="title">Informació</h1>
+                        <div className="nom">Nom: {pending.nom}</div>
+                        <div className="cognoms">Cognoms: {pending.cognom1} {pending.cogonm2}</div>
+                        <div className="dni">DNI: {pending.dni}</div>
+                        <div className="llicencia">Llicència: {pending.llicencia}</div>
+                        <div className="targetasanitaria">Target Sanitària: {pending.targetaSanitaria}</div>
+                        <div className="equip">Correu Electrònic: {pending.email}</div>
+            </div>
+        );
+
+    }
+}
+
+
 const Single = () => {
+    var url =  window.location.href;
+    var id =  url.substring(url.lastIndexOf("/") + 1);
+
+    const [pending, setData] = useState(false);
+    const showData = async() =>{
+        if (url.match("monitor")) {
+            client.getMonitor(id).then((data) => {
+                if(data.code != 200) window.location.href= '/login'
+                else setData(data.data);
+                }
+            )
+        }
+    }
+    useEffect(() => {
+        showData()
+    },[])
+
     return (
         <div className="single">
             <div className="singleContainer">
                 <Navbar/>
                 <div className="top">
                     <div className="buttons">
-                        <Button type="Edit"/>
+                        <Link to={"/edit"}>
+                            <Button type="Edit"/>
+                        </Link>
+                        
                     </div>
                     <div className="monitor" style={{display :readURL("monitor")}}>
-                        <h1 className="title">Informació</h1>
-                        <div className="nom">Nom: Martí</div>
-                        <div className="cognoms">Cognoms: Serra Aguilera</div>
-                        <div className="dni">DNI: 4797****</div>
-                        <div className="llicencia">Llicència: 12345567</div>
-                        <div className="targetasanitaria">Target Sanitària: SEAG 0 990126 003</div>
-                        <div className="equip">Equip: Campaments</div>
+                        {monitor(pending)}
                     </div>
                     <div className="nen" style={{display:readURL("nen")}}>
                         <h1 className="title">Informació</h1>

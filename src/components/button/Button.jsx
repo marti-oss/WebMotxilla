@@ -4,6 +4,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
+import { click } from "@testing-library/user-event/dist/click";
+import { ConstructionRounded } from "@mui/icons-material";
+import config from "../../config";
+import APIClient from "../../client";
+import { useEffect, useState } from "react";
+
+const client = new APIClient(config);
 
 const deleteStyle={
     color: "crimson",
@@ -23,51 +30,64 @@ const newStyle={
     borderColor: "rgba(0, 0, 139, 0.596)"
 };
 
-function Delete(){
-    return<button type="button" style={deleteStyle}>
-            <DeleteForeverIcon style={deleteStyle}></DeleteForeverIcon>
-            <span>Esborrar</span>
-        </button>
-}
-function View(){
-    return<button type="button" style={viewStyle}>
-            <VisibilityIcon ></VisibilityIcon>
-            <span>Veure</span>
-        </button>
-}
-function Edit(){
-    return<button type="button" style={editStyle}>
-            <EditIcon ></EditIcon>
-            <span>Editar</span>
-        </button>
-}
-function New(){
-    return<button type="button" style={newStyle}>
-            <AddIcon ></AddIcon>
-            <span>Nou</span>
-        </button>
-}
-function Save(){
-    return<button type="button" style={newStyle}>
-            <SaveIcon ></SaveIcon>
-            <span>Guardar</span>
-        </button>
-}
 
 
-function selectType(param){
-    if (param =="Delete") return Delete();
-    else if (param === "View") return View();
-    else if (param === "Edit") return Edit();
-    else if (param === "New") return New();
-    else if (param === "Save") return Save();
-    return <div>Default</div>
-}
 
 const Button = (prop) => {
+    function Delete(click,isfor){
+        return<button type="button" style={deleteStyle} onClick={() => esborrar(isfor)}>
+                <DeleteForeverIcon style={deleteStyle}></DeleteForeverIcon>
+                <span>Esborrar</span>
+            </button>
+    }
+    function View(click){
+        return<button type="button" style={viewStyle} onClick={click}>
+                <VisibilityIcon ></VisibilityIcon>
+                <span>Veure</span>
+            </button>
+    }
+    function Edit(click){
+        return<button type="button" style={editStyle} onClick={click}>
+                <EditIcon ></EditIcon>
+                <span>Editar</span>
+            </button>
+    }
+    function New(click){
+        return<button type="button" style={newStyle} onClick={click}>
+                <AddIcon ></AddIcon>
+                <span>Nou</span>
+            </button>
+    }
+    function Save(click){
+        return<button type="button" style={newStyle} onClick={click}>
+                <SaveIcon ></SaveIcon>
+                <span>Guardar</span>
+            </button>
+    }
+    
+    
+    function selectType(type,click,isfor){
+        if (type =="Delete") return Delete(click,isfor);
+        else if (type === "View") return View(click);
+        else if (type === "Edit") return Edit(click);
+        else if (type === "New") return New(click);
+        else if (type === "Save") return Save(click);
+        return <div>Default</div>
+    }
+
+    const [pending, setData] = useState(false);
+    const esborrar = async(isfor) => {
+        client.deleteAll(isfor).then((data) => {
+            if(data.code != 200) window.location.href= '/login'
+            else {
+                setData(data)
+                window.location.reload(false)
+            }
+        })
+    }
     return (
         <>
-        {selectType(prop.type)}
+        {selectType(prop.type,click,prop.isfor)}
         </>   
     );
 }
