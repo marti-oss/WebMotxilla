@@ -19,8 +19,9 @@ const rowsMonitors = [
 ];
 
 const columnsMonitors = [
-    { field: 'nom', headerName: 'Primer Cognom', width: 200 },
-    { field: 'segoncognom', headerName: 'Segon Cognom', width: 200 },
+    { field: 'nom', headerName: 'Nom', width: 200 },
+    { field: 'cognom1', headerName: 'Primer Cognom', width: 200 },
+    { field: 'cognon2', headerName: 'Segon Cognom', width: 200 },
     {
         field: 'dni',
         headerName: 'DNI',
@@ -28,7 +29,7 @@ const columnsMonitors = [
         width: 200,
     },
     { field: 'llicencia', headerName: 'Llicència', type: 'number', width: 200 },
-    { field: 'sanitaria', headerName: 'Targeta Sanitària', width: 200 },
+    { field: 'targetaSanitaria', headerName: 'Targeta Sanitària', width: 200 },
     { field: 'email', headerName: 'Correu electrònic', width: 200 },
 ];
 
@@ -42,28 +43,28 @@ const rowsNens = [
 
 const columnsNens = [
     { field: 'nom', headerName: 'Nom', width: 200 },
-    { field: 'primercognom', headerName: 'Primer Cognom', width: 200 },
-    { field: 'segoncognom', headerName: 'Segon Cognom', width: 200 },
+    { field: 'cognom1', headerName: 'Primer Cognom', width: 200 },
+    { field: 'cognon2', headerName: 'Segon Cognom', width: 200 },
     {
         field: 'dni',
         headerName: 'DNI',
         type: 'number',
         width: 200,
     },
-    { field: 'dataNeix', headerName: 'Data Naixement', type: 'date', width: 200 },
+    { field: 'dataNaixement', headerName: 'Data Naixement', type: 'date', width: 200 },
     { field: 'autoritzacio', headerName: 'Autorització', width: 200 },
-    { field: 'sanitaria', headerName: 'Targeta Sanitària', width: 200 },
+    { field: 'targetaSanitaria', headerName: 'Targeta Sanitària', width: 200 },
 ];
 
 
-function taula(state){
+function taula(state,id){
     if (state != false) {
         return (
             <div>
                 <h1>Monitors</h1>
-                <Datatable rows={state.monitors} columns={columnsMonitors} buttons="false"/>
+                <Datatable rows={state.monitors} columns={columnsMonitors} buttons="delete" listfor={"/equips/"+id+"/monitors"}/>
                 <h1>Nens</h1>
-                <Datatable rows={state.participants} columns={columnsNens} buttons="false"/>
+                <Datatable rows={state.participants} columns={columnsNens} buttons="delete" listfor={"/equips/"+id+"/participants"}/>
             </div>
         );
     }
@@ -94,7 +95,7 @@ const List = () => {
                     <Button type="New"/>
                     </Link>
                 </div>
-                {taula(pending)}
+                {taula(pending,id)}
             </div>
 
         </div>

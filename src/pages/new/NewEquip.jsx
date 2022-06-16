@@ -13,7 +13,6 @@ function crearSelectInputMonitor(pending){
     if(pending != false){
         return(
         <select id='selectMonitor' name="monitors" className="form-control">
-            <option disabled selected value> -- seleccionar -- </option>
             {
                 pending.map(element=>(
                     <option key={element.id} value={element.id}>{element.nom} {element.cognom1} {element.cognom2}</option>
@@ -23,28 +22,11 @@ function crearSelectInputMonitor(pending){
         );
     }
 }
-
-function crearAutocompleteMonitor(pending) {
-    if(pending != false){
-        return(
-        <select id='selectMonitor' name="monitors" className="form-control">
-            <option disabled selected value> -- seleccionar -- </option>
-            {
-                pending.map(element=>(
-                    <option key={element.id} value={element.id}>{element.nom} {element.cognom1} {element.cognom2}</option>
-                ))
-            }
-        </select>
-        );
-    }
-}
-
 
 function crearSelectInputParticipant(pending){
     if(pending != false){
         return(
         <select id='selectParticipant' name="participants" className="form-control">
-            <option disabled selected value> -- seleccionar -- </option>
             {
                 pending.map(element=>(
                     <option key={element.id} value={element.id}>{element.nom} {element.cognom1} {element.cognom2}</option>
@@ -56,6 +38,7 @@ function crearSelectInputParticipant(pending){
 }
 
 function addMonitor() {
+    console.log(document.getElementById("taulaMonitor"))
     var select = document.getElementById('selectMonitor')
     var text = select.options[select.selectedIndex].text
     var id = select.value
@@ -198,9 +181,6 @@ const NewEquip = () =>{
             }
         ) 
     }
-    useEffect(() => {
-        showData()
-    },[])
 
 
     const [pendingParticipants, setParticipants] = useState(false);
@@ -213,12 +193,13 @@ const NewEquip = () =>{
     }
     useEffect(() => {
         showParticipants()
+        showData()
     },[])
 
     const [pending2, setData2] = useState(false);
     const guardar = async() => {
         var body = guardarEquip()
-        if (body == !undefined){
+        if (body.length != 0){
             client.postEquip(body).then((data) => {
                 if(data.code != 200) window.location.href= '/login'
                 else {
@@ -280,7 +261,7 @@ const NewEquip = () =>{
                             </div>
                         </div>
                         <div className="button">
-                            <div style={{visibility:"hidden"}}>
+                            <div style={{visibility:"hidden"}} id="nocal">
                                 <Button></Button>
                             </div> 
                             <button type="button" style={{color: "darkblue", borderColor: "rgba(0, 0, 139, 0.596)"}} onClick={() => guardar()}>

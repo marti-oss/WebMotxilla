@@ -99,7 +99,7 @@ function putParticipant(setSwitchValue,setStartDate) {
     if (document.getElementById("nenreact-switch-new")) string += "&autoritzacio=" + setSwitchValue
     if (document.getElementById("nenDni").length != 0) string += "&dni=" + document.getElementById("nenDni").value
     if (document.getElementById("nenDataNaixement").length != 0) {
-        var date = document.getElementById("nenDataNaixement").value
+        var date = document.getElementById("nenDataNaixement").value.split('/')
         var dataNaix = date[2] + "-" + date[1] + "-" + date[0]
         string += "&dataNaixement=" + dataNaix;
     }
@@ -156,7 +156,6 @@ const NewNen = () => {
                 else{
                     setData(data.data);
                     setSwitchValue(data.data.autoritzacio)
-                    console.log(data.data.dataNaixement)
                     var date = data.data.dataNaixement.split("/")
                     var date2 = date[2] + '-' + date[1] + '-' + date[0]+'T00:00:00.0000Z'
                     setStartDate(Date.parse(date2))
@@ -164,7 +163,7 @@ const NewNen = () => {
                     document.getElementById("nenCognom1").value = data.data.cognom1
                     document.getElementById("nenCognom2").value = data.data.cognom2
                     document.getElementById("nenDni").value = data.data.dni;
-                    document.getElementById("nenDataNaixement").value = data.data.dataNaixement
+                    //document.getElementById("nenDataNaixement").value = data.data.dataNaixement
                     document.getElementById("nenTargetaSanitaria").value = data.data.targetaSanitaria
                 if(data.code != 200) window.location.href= '/login'
                 }
@@ -231,10 +230,10 @@ const NewNen = () => {
                 })
             }
             client.editParticipant(idParticipant, stringParticipant).then((data) => {
-                if(data.code != 200) window.location.href= '/login'
+                if(data.code != 200) data = data//window.location.href= '/login'
                 else{
                     data = data;
-                    window.location.href = '/nen/' + idParticipant
+                    //window.location.href = '/nen/' + idParticipant
                 }
             })
         }

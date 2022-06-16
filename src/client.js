@@ -19,7 +19,7 @@ class APIClient {
         let client = axios.create(initialConfig)
         client.defaults.headers.common["Content-Type"] = "application/json"
         if(localStorage.getItem("token"))
-            client.defaults.headers.common['Authorization'] = /*"123";*/ "Bearer " + localStorage.getItem("token");
+            client.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token");
         else
         client.defaults.headers.common['Authorization'] = null
 
