@@ -38,7 +38,6 @@ function crearSelectInputParticipant(pending){
 }
 
 function addMonitor() {
-    console.log(document.getElementById("taulaMonitor"))
     var select = document.getElementById('selectMonitor')
     var text = select.options[select.selectedIndex].text
     var id = select.value
