@@ -73,7 +73,14 @@ const NewMonitor = () => {
         var id = url.split("/")[4];
         if (url.match("edit")) {
             client.editMonitor(id,string).then((data) =>{
-                if(data.code != 200) window.location.href= '/login'
+                if(data.code != 200) {
+                    window.location.href= '/login'
+                    return
+                }
+                if (!data.success) {
+                    alert("Ja existeix un monitor amb aquest correu electrònic");
+                    return
+                }
                 else {
                     setData2(data)
                     window.location.href = '/monitor/' + id
@@ -82,7 +89,11 @@ const NewMonitor = () => {
         }
         else {
             client.postMonitor(string).then((data) =>{
-                if(data.code != 200) window.location.href= '/login'
+                if(data.code != 200){
+                    window.location.href= '/login'
+                    return
+
+                } 
                 if (!data.success) {
                     alert("Ja existeix un monitor amb aquest correu electrònic");
                     return
