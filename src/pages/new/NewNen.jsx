@@ -45,20 +45,6 @@ function bodyPost(setSwitchValue) {
                 if (inputs[i].id == "pareTelefon1") string += "res1telefon1=" + inputs[i].value;
                 if (inputs[i].id == "pareTelefon2") string += "res1telefon2=" + inputs[i].value;
             }
-            if (inputs[i].id.includes("mare")) {
-                if (string.length == 0) string += "?"
-                else string += "&"
-                if (inputs[i].id == "mareNom") string += "res2nom=" + inputs[i].value;
-                if (inputs[i].id == "mareCognom1") string += "res2cognom1=" + inputs[i].value;
-                if (inputs[i].id == "mareCognom2") string += "res2cognom2=" + inputs[i].value;
-                if (inputs[i].id == "mareEmail") {
-                    string += "res2email=" + inputs[i].value;
-                    if (!inputs[i].value.includes("@")) return alert("CORREU ELECTRÒNIC FORMAT INVÀLID");
-                }
-                if (inputs[i].id == "mareDni") string += "res2dni=" + inputs[i].value;
-                if (inputs[i].id == "mareTelefon1") string += "res2telefon1=" + inputs[i].value;
-                if (inputs[i].id == "mareTelefon2") string += "res2telefon2=" + inputs[i].value;
-            }
         }
     }
     if (string.length != 0) {
@@ -70,7 +56,6 @@ function bodyPost(setSwitchValue) {
         if (!string.includes("targetaSanitaria")) return alert("INDICAR TARGETA SANITARIA");
 
     }
-    //if (string == 0 && stringResponsable2 == 0) return alert("Completar com a mínim un tutor legal")
     if (string.length != 0) {
         if (!string.includes("res1nom")) return alert("INDICAR NOM A RESPONSABLE 1");
         if (!string.includes("res1cognom")) return alert("INDICAR PRIMER COGNOM A RESPONSABLE 1");
@@ -79,15 +64,6 @@ function bodyPost(setSwitchValue) {
         if (!string.includes("res1telefon1")) return alert("INDICAR DE TELÈFON 1 A RESPONSABLE 1");
     }
 
-    /*
-    if(string.length != 0){
-        if(!string.includes("res2nom")) return alert("INDICAR NOM A RESPONSABLE 2");
-        if(!string.includes("res2nom")) return alert("INDICAR PRIMER COGNOM A RESPONSABLE 2");
-        if(!string.includes("res2nom")) return alert("INDICAR CORREU ELECTRÒNIC A RESPONSABLE 2");
-        if(!string.includes("res2nom")) return alert("INDICAR DNI A RESPONSABLE 2");
-        if(!string.includes("res2nom")) alert("INDICAR DE TELÈFON 1 A RESPONSABLE 2");
-    }
-    */
     return string
 }
 
@@ -163,7 +139,6 @@ const NewNen = () => {
                     document.getElementById("nenCognom1").value = data.data.cognom1
                     document.getElementById("nenCognom2").value = data.data.cognom2
                     document.getElementById("nenDni").value = data.data.dni;
-                    //document.getElementById("nenDataNaixement").value = data.data.dataNaixement
                     document.getElementById("nenTargetaSanitaria").value = data.data.targetaSanitaria
                 if(data.code != 200) window.location.href= '/login'
                 }
@@ -188,15 +163,6 @@ const NewNen = () => {
                             document.getElementById("pareDni").value = data.data[i].dni
                             document.getElementById("pareTelefon1").value = data.data[i].telefon1
                             document.getElementById("pareTelefon2").value = data.data[i].telefon2
-                        }
-                        else {
-                            document.getElementById("mareNom").value = data.data[i].nom
-                            document.getElementById("mareCognom1").value = data.data[i].cognom1
-                            document.getElementById("mareCognom2").value = data.data[i].cognom2
-                            document.getElementById("mareEmail").value = data.data[i].email
-                            document.getElementById("mareDni").value = data.data[i].dni
-                            document.getElementById("mareTelefon1").value = data.data[i].telefon1
-                            document.getElementById("mareTelefon2").value = data.data[i].telefon2
                         }
                     }
                 }
@@ -230,10 +196,10 @@ const NewNen = () => {
                 })
             }
             client.editParticipant(idParticipant, stringParticipant).then((data) => {
-                if(data.code != 200) data = data//window.location.href= '/login'
+                if(data.code != 200) window.location.href= '/login'
                 else{
                     data = data;
-                    //window.location.href = '/nen/' + idParticipant
+                    window.location.href = '/nen/' + idParticipant
                 }
             })
         }
@@ -345,47 +311,6 @@ const NewNen = () => {
                                                 <div className="formInput">
                                                     <label>Telèfon 2</label>
                                                     <input id="pareTelefon2" type="number" placeholder="69234578" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="mare">
-                                    <div className="top">
-                                        <h1>Responsable 2</h1>
-                                    </div>
-                                    <div className="bottom">
-                                        <div className="input">
-                                            <div className="left">
-                                                <div className="formInput">
-                                                    <label>Nom</label>
-                                                    <input id="mareNom" type="text" placeholder="Martí" />
-                                                </div>
-                                                <div className="formInput">
-                                                    <label>Primer cognom</label>
-                                                    <input id="mareCognom1" type="text" placeholder="Serra" />
-                                                </div>
-                                                <div className="formInput">
-                                                    <label>Segon cognom</label>
-                                                    <input id="mareCognom2" type="text" placeholder="Aguilera" />
-                                                </div>
-                                                <div className="formInput">
-                                                    <label>Correu electrònic</label>
-                                                    <input id="mareEmail" type="email" placeholder="jja@motixilla.cat" />
-                                                </div>
-                                            </div>
-                                            <div className="right">
-                                                <div className="formInput">
-                                                    <label>DNI</label>
-                                                    <input id="mareDni" type="text" placeholder="4797*****" />
-                                                </div>
-                                                <div className="formInput">
-                                                    <label>Telèfon 1</label>
-                                                    <input id="mareTelefon1" type="number" placeholder="69234578" />
-                                                </div>
-                                                <div className="formInput">
-                                                    <label>Telèfon 2</label>
-                                                    <input id="mareTelefon2" type="number" placeholder="69234578" />
                                                 </div>
                                             </div>
                                         </div>
