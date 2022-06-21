@@ -30,7 +30,6 @@ class APIClient {
         return this.apiClient.get('/monitors').then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -39,7 +38,6 @@ class APIClient {
         return this.apiClient.put('monitors/' + id + string).then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -56,7 +54,6 @@ class APIClient {
         return this.apiClient.get("/monitors/" + id).then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -65,7 +62,6 @@ class APIClient {
         return this.apiClient.get('/equips').then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -75,7 +71,6 @@ class APIClient {
         return this.apiClient.get('/equips/' + id).then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -84,7 +79,6 @@ class APIClient {
         return this.apiClient.post('/equips' + body).then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -93,7 +87,6 @@ class APIClient {
         return this.apiClient.post("/participants" + body).then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -102,7 +95,6 @@ class APIClient {
         return this.apiClient.get('/participants').then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -111,7 +103,6 @@ class APIClient {
         return this.apiClient.get("/participants/" + id).then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -120,7 +111,6 @@ class APIClient {
         return this.apiClient.put('/participants/' + idParticipant + '/responsables/' + idResponsable + string).then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
 
@@ -130,7 +120,6 @@ class APIClient {
         return this.apiClient.put('participants/' + idParticipant + string).then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -139,7 +128,6 @@ class APIClient {
         return this.apiClient.get("/participants/" + id + "/responsables").then(({ data }) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
@@ -148,7 +136,6 @@ class APIClient {
         return this.apiClient.delete(isfor).then(({data}) => {
             return data
         }).catch((error) => {
-            console.log(error)
             return error
         }) 
     }
