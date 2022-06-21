@@ -89,7 +89,7 @@ const NewMonitor = () => {
                 }
                 else {
                     setData2(data)
-                    window.location.href = '/monitor/' + id
+                    window.location.href = '/monitor'
                 }
             })
         }
