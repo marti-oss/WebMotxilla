@@ -12,8 +12,22 @@ const Login = () => {
 
         var email = document.getElementById("email").value
         var contrasenya = document.getElementById("contrasenya").value
-        client.iniciarSessio(email,contrasenya).then((data) => {
-            window.location.href = '/'
+        if (email.length == 0 || contrasenya.length == 0) {
+            alert("Omplit tots el camps");
+            return;
+        }
+        client.iniciarSessio(email,contrasenya).catch((error) => {
+            if(error) {
+                document.getElementById("email").value = "";
+                document.getElementById("contrasenya").value = "";
+                alert("Correu electrònic o contrasenya incorrecta");
+            }
+        }).then((data) => {
+            try{
+                window.location.href = '/'
+            }
+            catch(error){}
+                
         })
     }
   return(
