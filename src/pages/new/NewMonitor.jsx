@@ -81,8 +81,14 @@ const NewMonitor = () => {
             })
         }
         else {
-            client.postMonitor(string).then((data) =>{
-                if(data.code != 200) window.location.href= '/login'
+            client.postMonitor(string).catch((error) => {
+                console.log("ERROR", error);
+            }).then((data) =>{
+                console.log(data);
+                if (data == undefined) {
+                    alert("Ja existeix un monitor amb aquest correu electrònic");
+                    return
+                }
                 else {
                     setData2(data)
                     window.location.href = '/monitor/' + id

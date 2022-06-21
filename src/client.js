@@ -45,12 +45,11 @@ class APIClient {
     }
 
     postMonitor(string) {
-        return this.apiClient.post('monitors' + string).then(({ data }) => {
-            return data
-        }).catch((error) => {
-            console.log(error)
+        return this.apiClient.post('monitors' + string).catch((error) => {
             return error
-        }) 
+        }).then(({ data }) => {
+            return data
+        })
     }
 
     getMonitor(id) {
@@ -155,10 +154,14 @@ class APIClient {
     }
 
     iniciarSessio(email, contrasenya) {
-        return this.apiClient.post("/api/login_check", { username: email, password: contrasenya }).then(({ data }) => {
+        return this.apiClient.post("/api/login_check", { username: email, password: contrasenya }).catch(function (error) {
+            if(error) {
+                return Promise.reject(error);
+            }
+        }).then(({ data }) => {
             localStorage.setItem("token", data["token"]);
             return data
-        })
+        }) 
     }
 
     tancarSessio() {
