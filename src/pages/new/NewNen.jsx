@@ -190,15 +190,12 @@ const NewNen = () => {
 
             for (var i = 0; i < setPares.length; i++) {
                 client.editParcipantResponsable(idParticipant, setPares[i].id, stringResponable1).then((data) => {
-                    data = data
                 }).then((data) => {
-                    data = data
                 })
             }
             client.editParticipant(idParticipant, stringParticipant).then((data) => {
                 if(data.code != 200) window.location.href= '/login'
                 else{
-                    data = data;
                     window.location.href = '/nen/' + idParticipant
                 }
             })
@@ -209,7 +206,6 @@ const NewNen = () => {
                 client.postParticipant(string).then((data) => {
                     if(data.code != 200) window.location.href= '/login'
                     else{
-                        data = data
                         window.location.href = '/nen'
                     }
                 })
