@@ -246,7 +246,7 @@ const NewEquip = () =>{
                             <div className="left">
                                 <h2>Seleccionar Monitor</h2>
                                 <div className="select">
-                                    {crearSelectInputMonitor(pending,'selectMonitor')}
+                                    {crearSelectInputMonitor(pending)}
                                 </div>
                                 {botoMonitor()}
                                 {crearTaulaMonitor()}
@@ -254,7 +254,7 @@ const NewEquip = () =>{
                             <div className="right">
                             <h2>Seleccionar Participant</h2>
                                 <div className="select">
-                                    {crearSelectInputParticipant(pendingParticipants, "selectParticipant")}
+                                    {crearSelectInputParticipant(pendingParticipants)}
                                 </div>
                                 {botoParticipant()}
                                 {crearTaulaParticipant()}
