@@ -260,7 +260,7 @@ const NewNen = () => {
                                             <div className="formInput">
                                                 <label>Data Naixement</label>
                                                 {/*<input id="nenDataNaixement" type="text" placeholder="1999-05-27" required />*/}
-                                                <DatePicker id={"nenDataNaixement"}selected={startDate}  dateFormat='dd/MM/yyyy' onChange={(date:Date) => setStartDate(date)}></DatePicker>
+                                                <DatePicker id={"nenDataNaixement"}selected={startDate}  dateFormat='dd/MM/yyyy' onChange={(date) => setStartDate(date)}></DatePicker>
                                             </div>
                                             <div className="formInput">
                                                 <label>Targeta Sanitària</label>
