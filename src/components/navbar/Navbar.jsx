@@ -33,7 +33,7 @@ const Navbarr = () => {
                     </span>
                     <span onClick={() => {window.location.href = '/nen'}}>
                         <Link to="/nen">
-                            <ChildCareIcon className="icon"/>Nens
+                            <ChildCareIcon className="icon"/>Participants
                         </Link>
                     </span>
                     <span onClick={() => {window.location.href = '/equip'}}>

@@ -61,7 +61,7 @@ function taula(state){
 
         if (url.match("nen")) {
         return(<div>
-            <h1>Nens</h1>
+            <h1>Participants</h1>
                 <Datatable rows={state} columns={columnsNens} listfor="/participants"/>
             </div>)
         }

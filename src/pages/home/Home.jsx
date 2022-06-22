@@ -33,7 +33,7 @@ const Home = () => {
                 <Link to="nen">
                     <div className="nens">
                         <span className="logo">
-                            Nens
+                            Participants
                         </span>
                     </div>
                 </Link>
