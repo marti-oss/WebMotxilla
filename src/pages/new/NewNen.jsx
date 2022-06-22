@@ -230,7 +230,7 @@ const NewNen = () => {
                         <div className="input">
                             <div className="nen">
                                 <div className="top">
-                                    <h1>Nou Nen/a</h1>
+                                    <h1>Nou Participant</h1>
                                 </div>
                                 <div className="bottom">
                                     <div className="input">
@@ -273,7 +273,7 @@ const NewNen = () => {
                             <div className="pares">
                                 <div className="pare">
                                     <div className="top">
-                                        <h1>Responsable 1</h1>
+                                        <h1>Responsable</h1>
                                     </div>
                                     <div className="bottom">
                                         <div className="input">

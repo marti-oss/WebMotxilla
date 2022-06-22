@@ -63,7 +63,7 @@ function taula(state,id){
             <div>
                 <h1>Monitors</h1>
                 <Datatable rows={state.monitors} columns={columnsMonitors} buttons="delete" listfor={"/equips/"+id+"/monitors"}/>
-                <h1>Nens</h1>
+                <h1>Participants</h1>
                 <Datatable rows={state.participants} columns={columnsNens} buttons="delete" listfor={"/equips/"+id+"/participants"}/>
             </div>
         );

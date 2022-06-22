@@ -36,7 +36,7 @@ const Sidebar = () => {
                     </li>
                     <li>
                         <Link to="/nen">
-                            <ChildCareIcon className="icon"/>Nens
+                            <ChildCareIcon className="icon"/>Participants
                         </Link>
                         
                     </li>
